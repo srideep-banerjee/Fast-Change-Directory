@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"os"
 	_ "strings"
 
 	"me/fast-cd/ui"
@@ -13,12 +15,18 @@ import (
 var input = ""
 
 func main() {
+    f, err := os.OpenFile("logs.txt", os.O_RDWR | os.O_CREATE, 666)
+    if err != nil {
+        panic(err)
+    }
+    defer f.Close()
+    log.SetOutput(f)
+    log.SetFlags(log.LstdFlags | log.Lshortfile)
     fmt.Println("\033[?1049h")
 
-    err := termbox.Init()
+    err = termbox.Init()
     if err != nil {
-        fmt.Println("Terminal does not support required library: termbox-go")
-        panic(err)
+        log.Panic(err)
     }
     defer close()
     eventLoop()
@@ -53,7 +61,7 @@ func eventLoop() {
 
         event = termbox.PollEvent()
         if event.Err != nil {
-            panic(event.Err)
+            log.Panic(event.Err)
         }
     }
 }
