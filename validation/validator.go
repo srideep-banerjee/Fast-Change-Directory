@@ -16,7 +16,7 @@ func validateCommand(str string) string {
         return "Command must start with /"
     }
     str = str[1:]
-    spaceInd := strings.IndexRune(str, ' ')
+    // spaceInd := strings.IndexRune(str, ' ')
     return ""
 }
 
