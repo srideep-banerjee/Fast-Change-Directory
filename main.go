@@ -4,8 +4,10 @@ import (
 	"fmt"
 	_ "strings"
 
+	"me/fast-cd/ui"
+	_ "me/fast-cd/validation"
+
 	"github.com/nsf/termbox-go"
-    _ "me/fast-cd/validation"
 )
 
 var input = ""
@@ -36,11 +38,16 @@ func eventLoop() {
     EventLoop:
     for true {
 
-        fmt.Println(event.Type)
         switch (event.Type) {
         case termbox.EventKey:
             if event.Key == termbox.KeyCtrlC {
                 break EventLoop
+            } else if event.Key == termbox.KeyBackspace {
+                input = input[:len(input) - 1]
+                ui.RenderInputBox(input)
+            } else {
+                input += string(event.Ch)
+                ui.RenderInputBox(input)
             }
         }
 
@@ -49,7 +56,4 @@ func eventLoop() {
             panic(event.Err)
         }
     }
-}
-
-func renderInputBox() {
 }
