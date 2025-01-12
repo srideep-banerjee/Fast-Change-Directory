@@ -20,6 +20,7 @@ func RenderInputBox(input string) {
     print(0, c - 2, "|" + input)
     print(r - 1, c - 2, "|")
     print(0, c - 1, line)
+    termbox.SetCursor(len(input) + 1, c - 2)
     err := termbox.Flush()
     if err != nil {
         log.Panic(err)
