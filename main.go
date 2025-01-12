@@ -15,7 +15,7 @@ import (
 var input = ""
 
 func main() {
-    f, err := os.OpenFile("logs.txt", os.O_RDWR | os.O_CREATE, 666)
+    f, err := os.Create("logs.txt")
     if err != nil {
         panic(err)
     }
