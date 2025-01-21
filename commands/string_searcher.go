@@ -24,12 +24,13 @@ func NewStringSearcher[T any]() *StringSearcher[T] {
 
 func (s StringSearcher[T]) AddEntry(str string, value T) {
     var n *node[T] = s.start
+    n.values = append(n.values, value)
     for _, ch := range str {
-        n.values = append(n.values, value)
         if n.nextEntries[ch] == nil {
             n.nextEntries[ch] = newNode[T]()
         }
         n = n.nextEntries[ch]
+        n.values = append(n.values, value)
     }
 }
 
