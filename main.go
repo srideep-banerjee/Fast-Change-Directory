@@ -44,7 +44,7 @@ func eventLoop() {
     }
 
     EventLoop:
-    for true {
+    for {
 
         switch (event.Type) {
         case termbox.EventKey:
