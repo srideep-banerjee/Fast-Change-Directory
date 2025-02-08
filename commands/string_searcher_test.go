@@ -44,7 +44,7 @@ func TestStringSearcherWithInitialization(t *testing.T) {
     })
     actual := stringSearcher.GetAvailableValues("")
     if !testEq(actual, []int{1, 2}) {
-        t.Error("String searcher with values initialization gives incorrect result")
+        t.Error("String searcher with values initialization gives [" + arrayToString(actual, ", ") + "] instead of [1, 2]")
     }
 }
 
