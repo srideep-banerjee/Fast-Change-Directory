@@ -37,6 +37,17 @@ func TestStringSearcher(t *testing.T) {
     }
 }
 
+func TestStringSearcherWithInitialization(t *testing.T) {
+    var stringSearcher *StringSearcher[int] = NewStringSearcherWith(map[string]int {
+        "ab": 1,
+        "cd": 2,
+    })
+    actual := stringSearcher.GetAvailableValues("")
+    if !testEq(actual, []int{1, 2}) {
+        t.Error("String searcher with values initialization gives incorrect result")
+    }
+}
+
 func testEq(a, b []int) bool {
     if len(a) != len(b) {
         return false
