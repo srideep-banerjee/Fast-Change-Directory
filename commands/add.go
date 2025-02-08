@@ -14,7 +14,7 @@ func (a add) Matches(str string) bool {
         str = str[:spaceInd]
     }
 
-    return strings.HasPrefix("add", str)
+    return strings.HasPrefix(str, "add")
 }
 
 func (a add) Validate(str string) string {

@@ -13,7 +13,7 @@ func (r remove) Matches(str string) bool {
         str = str[:spaceInd]
     }
 
-    return strings.HasPrefix("remove", str)
+    return strings.HasPrefix(str, "remove")
 }
 
 func (r remove) Validate(str string) string {
