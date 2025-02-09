@@ -31,8 +31,8 @@ func TestStringSearcher(t *testing.T) {
             stringSearcher.AddEntry(test.key, test.value)
         }
         actual := stringSearcher.GetAvailableValues(test.input)
-        if !testEq(actual, test.expected) {
-            t.Error("String searcher gives [" + arrayToString(actual, ", ") + "] for \"" + test.input + "\" when it should be [" + arrayToString(test.expected, ", ") + "]")
+        if !testEq(t, actual, test.expected) {
+            t.Error("String searcher gives [" + arrayToString(t, actual, ", ") + "] for \"" + test.input + "\" when it should be [" + arrayToString(t, test.expected, ", ") + "]")
         }
     }
 }
@@ -43,12 +43,12 @@ func TestStringSearcherWithInitialization(t *testing.T) {
         "cd": 2,
     })
     actual := stringSearcher.GetAvailableValues("")
-    if !testEq(actual, []int{1, 2}) {
-        t.Error("String searcher with values initialization gives [" + arrayToString(actual, ", ") + "] instead of [1, 2]")
+    if !testEq(t, actual, []int{1, 2}) {
+        t.Error("String searcher with values initialization gives [" + arrayToString(t, actual, ", ") + "] instead of [1, 2]")
     }
 }
 
-func testEq(a, b []int) bool {
+func testEq(_ testing.TB, a, b []int) bool {
     if len(a) != len(b) {
         return false
     }
@@ -60,7 +60,7 @@ func testEq(a, b []int) bool {
     return true
 }
 
-func arrayToString(a []int, delim string) string {
+func arrayToString(_ testing.TB, a []int, delim string) string {
     return strings.Trim(strings.Replace(fmt.Sprint(a), " ", delim, -1), "[]")
     //return strings.Trim(strings.Join(strings.Split(fmt.Sprint(a), " "), delim), "[]")
     //return strings.Trim(strings.Join(strings.Fields(fmt.Sprint(a)), delim), "[]")
