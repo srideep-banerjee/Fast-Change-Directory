@@ -36,7 +36,7 @@ func isCharAllowed(ch rune) bool {
 	if strings.ContainsRune(strings.ToUpper(allowed), ch) {
 		return true
 	}
-	if '0' >= ch && ch <= '9' {
+	if '0' <= ch && ch <= '9' {
 		return true
 	}
 	return false
