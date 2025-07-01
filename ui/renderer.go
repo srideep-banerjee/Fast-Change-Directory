@@ -2,6 +2,7 @@ package ui
 
 import (
 	"log"
+	"strings"
 
 	"github.com/nsf/termbox-go"
 )
@@ -30,9 +31,8 @@ func RenderInputBox() {
 
 func RenderInputText(input string) {
     r, c := termbox.Size()
-    for i := len(input); i < r; i++ {
-        print(i, c - 2, " ")
-    }
+    l := len(input)
+    print(l + 1, c - 2, strings.Repeat(" ", r - 2 - l))
     print(1, c - 2, input)
     termbox.SetCursor(len(input) + 1, c - 2)
 }
