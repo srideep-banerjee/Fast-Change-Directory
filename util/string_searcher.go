@@ -1,4 +1,4 @@
-package commands
+package util
 
 type StringSearcher[T any] struct {
 	start *node[T]
@@ -7,6 +7,10 @@ type StringSearcher[T any] struct {
 type StringSearcherEntry[T any] struct {
 	key   string
 	value T
+}
+
+func NewStringSearcherEntry[T any](key string, value T) StringSearcherEntry[T] {
+	return StringSearcherEntry[T]{key: key, value: value}
 }
 
 type node[T any] struct {

@@ -2,6 +2,7 @@ package commands
 
 import (
 	"me/fast-cd/db"
+	"me/fast-cd/util"
 	"strings"
 )
 
@@ -10,12 +11,12 @@ type Command interface {
 	Process(database db.Database, str string) error
 }
 
-var availbleCommands = []StringSearcherEntry[Command] {
-	{key: "add", value: add{}},
-	{key: "remove", value: remove{}},
+var availbleCommands = [] util.StringSearcherEntry[Command] {
+	util.NewStringSearcherEntry[Command]("add", add{}),
+	util.NewStringSearcherEntry[Command]("remove", remove{}),
 }
 
-var commandSearcher *StringSearcher[Command] = NewStringSearcherWith(availbleCommands)
+var commandSearcher *util.StringSearcher[Command] = util.NewStringSearcherWith(availbleCommands)
 
 func GetMatching(prefix string) []Command {
 	prefix = prefix[1:]
