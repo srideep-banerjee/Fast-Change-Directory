@@ -52,10 +52,10 @@ func eventLoop() {
                 break EventLoop
             } else if event.Key == termbox.KeyBackspace {
                 input = input[:len(input) - 1]
-                ui.RenderInputBox(input)
+                ui.RenderInputField(input)
             } else {
                 input += string(event.Ch)
-                ui.RenderInputBox(input)
+                ui.RenderInputField(input)
             }
         }
 
