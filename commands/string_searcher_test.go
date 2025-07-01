@@ -38,9 +38,9 @@ func TestStringSearcher(t *testing.T) {
 }
 
 func TestStringSearcherWithInitialization(t *testing.T) {
-    var stringSearcher *StringSearcher[int] = NewStringSearcherWith(map[string]int {
-        "ab": 1,
-        "cd": 2,
+    var stringSearcher *StringSearcher[int] = NewStringSearcherWith([]StringSearcherEntry[int] {
+        {key: "ab", value: 1},
+        {key: "cd", value: 2},
     })
     actual := stringSearcher.GetAvailableValues("")
     if !testEq(t, actual, []int{1, 2}) {

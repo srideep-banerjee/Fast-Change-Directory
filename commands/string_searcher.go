@@ -4,6 +4,11 @@ type StringSearcher[T any] struct {
 	start *node[T]
 }
 
+type StringSearcherEntry[T any] struct {
+	key   string
+	value T
+}
+
 type node[T any] struct {
 	nextEntries map[rune]*node[T]
 	values      []T
@@ -22,11 +27,11 @@ func NewStringSearcher[T any]() *StringSearcher[T] {
 	return ss
 }
 
-func NewStringSearcherWith[T any](entries map[string]T) *StringSearcher[T] {
+func NewStringSearcherWith[T any](entries []StringSearcherEntry[T]) *StringSearcher[T] {
 	ss := new(StringSearcher[T])
 	ss.start = newNode[T]()
-	for str, value := range entries {
-		ss.AddEntry(str, value)
+	for _, entry := range entries {
+		ss.AddEntry(entry.key, entry.value)
 	}
 	return ss
 }

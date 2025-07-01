@@ -9,9 +9,9 @@ type Command interface {
     Process(str string) error
 }
 
-var availbleCommands map[string]Command = map[string]Command {
-	"add": add{},
-	"remove": remove{},
+var availbleCommands = []StringSearcherEntry[Command] {
+	{key: "add", value: add{}},
+	{key: "remove", value: remove{}},
 }
 
 var commandSearcher *StringSearcher[Command] = NewStringSearcherWith(availbleCommands)
