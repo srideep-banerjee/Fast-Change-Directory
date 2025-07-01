@@ -1,21 +1,13 @@
 package commands
 
 import (
-    "strings"
-    "me/fast-cd/validation"
+	"errors"
+	"me/fast-cd/db"
+	"me/fast-cd/validation"
+	"strings"
 )
 
 type add struct {}
-
-func (a add) Matches(str string) bool {
-    spaceInd := strings.IndexRune(str, ' ')
-
-    if spaceInd != -1 {
-        str = str[:spaceInd]
-    }
-
-    return strings.HasPrefix(str, "add")
-}
 
 func (a add) Validate(str string) string {
     formatString := "Must be of the format: /add [tag]=[location]"
@@ -28,6 +20,9 @@ func (a add) Validate(str string) string {
     if valid, ch := validation.IsTagValid(tag); !valid {
         return string(ch) + " is not allowed in tags"
     }
+    if len(tag) == 0 {
+        return "Tag cannot be empty"
+    }
     location := strings.Trim(str[equalInd + 1:], " ")
     if len(location) == 0 {
         return "Location cannot be empty"
@@ -35,6 +30,15 @@ func (a add) Validate(str string) string {
     return ""
 }
 
-func (a add) Process(str string) error {
-    return nil
+func (a add) Process(database db.Database, str string) error {
+    if str := a.Validate(str); str != "" {
+        return errors.New(str)
+    }
+
+    str = str[strings.IndexRune(str, ' ') + 1:]
+    equalInd := strings.IndexRune(str, '=')
+    tag := strings.Trim(str[:equalInd], " ")
+    location := strings.Trim(str[equalInd + 1:], " ")
+
+    return database.AddTag(tag, location)
 }

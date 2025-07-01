@@ -1,12 +1,13 @@
 package commands
 
 import (
+	"me/fast-cd/db"
 	"strings"
 )
 
 type Command interface {
-    Validate(str string) (reason string)
-    Process(str string) error
+	Validate(str string) (reason string)
+	Process(database db.Database, str string) error
 }
 
 var availbleCommands = []StringSearcherEntry[Command] {
@@ -16,11 +17,13 @@ var availbleCommands = []StringSearcherEntry[Command] {
 
 var commandSearcher *StringSearcher[Command] = NewStringSearcherWith(availbleCommands)
 
-func MatchesAny(str string) bool {
-	str = str[1:]
-	spaceInd := strings.Index(str, " ")
+func GetMatching(prefix string) []Command {
+	prefix = prefix[1:]
+
+	spaceInd := strings.Index(prefix, " ")
 	if spaceInd != -1 {
-		str = str[:spaceInd]
-    }
-	return len(commandSearcher.GetAvailableValues(str)) != 0
+		prefix = prefix[:spaceInd]
+	}
+
+	return commandSearcher.GetAvailableValues(prefix)
 }

@@ -1,20 +1,11 @@
 package commands
 
 import (
-    "strings"
+	"me/fast-cd/db"
+	"strings"
 )
 
 type remove struct {}
-
-func (r remove) Matches(str string) bool {
-    spaceInd := strings.IndexRune(str, ' ')
-
-    if spaceInd != -1 {
-        str = str[:spaceInd]
-    }
-
-    return strings.HasPrefix(str, "remove")
-}
 
 func (r remove) Validate(str string) string {
     str = str[strings.IndexRune(str, ' ') + 1:]
@@ -24,6 +15,6 @@ func (r remove) Validate(str string) string {
     return ""
 }
 
-func (r remove) Process(str string) error {
+func (r remove) Process(database db.Database, str string) error {
     return nil
 }
