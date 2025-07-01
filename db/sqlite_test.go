@@ -83,5 +83,5 @@ func TestAddAndListTag(t *testing.T) {
 		return
 	}
 	
-	assert.ElementsMatch(t, expected, tags)
+	assert.Equal(t, expected, tags)
 }
