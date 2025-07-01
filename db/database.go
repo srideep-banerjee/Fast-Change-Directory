@@ -38,3 +38,15 @@ type Tag struct {
 	tag string
 	location string
 }
+
+func NewTag(tag string, location string) Tag {
+	return Tag{tag: tag, location: location}
+}
+
+func (t Tag) GetTagName() string {
+	return t.tag
+}
+
+func (t Tag) GetLocation() string {
+	return t.location
+}
