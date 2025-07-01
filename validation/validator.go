@@ -4,22 +4,6 @@ import "strings"
 
 var allowed = "abcdefghijklmnopqrstuvwxyz"
 
-func ValidateInput(str string) string {
-	if strings.HasPrefix(str, "/") {
-        return validateCommand(str)
-	}
-    return ""
-}
-
-func validateCommand(str string) string {
-    if !strings.HasPrefix(str, "/") {
-        return "Command must start with /"
-    }
-    str = str[1:]
-    // spaceInd := strings.IndexRune(str, ' ')
-    return ""
-}
-
 func IsTagValid(tag string) (bool, rune) {
     for _, ch := range tag {
         if !isCharAllowed(ch) {

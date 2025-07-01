@@ -18,13 +18,21 @@ var availbleCommands = [] util.StringSearcherEntry[Command] {
 
 var commandSearcher *util.StringSearcher[Command] = util.NewStringSearcherWith(availbleCommands)
 
-func GetMatching(prefix string) []Command {
-	prefix = prefix[1:]
+func IsCommand(input string) bool {
+	return strings.HasPrefix(input, "/")
+}
 
-	spaceInd := strings.Index(prefix, " ")
+func GetMatching(input string) []Command {
+	if !IsCommand(input) {
+		return [] Command {}
+	}
+	
+	input = input[1:]
+
+	spaceInd := strings.Index(input, " ")
 	if spaceInd != -1 {
-		prefix = prefix[:spaceInd]
+		input = input[:spaceInd]
 	}
 
-	return commandSearcher.GetAvailableValues(prefix)
+	return commandSearcher.GetAvailableValues(input)
 }
