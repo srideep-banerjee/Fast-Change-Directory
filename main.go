@@ -4,10 +4,8 @@ import (
 	"fmt"
 	"log"
 	"os"
-	_ "strings"
 
 	"me/fast-cd/ui"
-	_ "me/fast-cd/validation"
 
 	"github.com/nsf/termbox-go"
 )
@@ -51,8 +49,11 @@ func eventLoop() {
             if event.Key == termbox.KeyCtrlC {
                 break EventLoop
             } else if event.Key == termbox.KeyBackspace {
-                input = input[:len(input) - 1]
-                ui.RenderInputField(input)
+                l := len(input)
+                if l != 0 {
+                    input = input[:l - 1]
+                    ui.RenderInputField(input)
+                }
             } else {
                 input += string(event.Ch)
                 ui.RenderInputField(input)

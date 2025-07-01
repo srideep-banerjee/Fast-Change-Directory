@@ -32,6 +32,10 @@ func RenderInputBox() {
 func RenderInputText(input string) {
     r, c := termbox.Size()
     l := len(input)
+    if l  > r - 2 {
+        input = input[l - (r - 2):]
+        l = len(input)
+    }
     print(l + 1, c - 2, strings.Repeat(" ", r - 2 - l))
     print(1, c - 2, input)
     termbox.SetCursor(len(input) + 1, c - 2)
